@@ -8,7 +8,10 @@ const generateToken = async (user) => {
     {
       user: user.id,
     },
-    process.env.SECRET
+    process.env.SECRET,
+    {
+      expiresIn: "4h",
+    }
   );
 };
 
