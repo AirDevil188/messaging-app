@@ -4,9 +4,10 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const indexRouter = require("./routes/indexRouter");
+const userRouter = require("./routes/userRouter");
 
 const app = express();
+require("./config/passport");
 
 app.use(
   cors({
@@ -19,7 +20,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", indexRouter);
+app.use("/", userRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`App is listening on the ${process.env.PORT}`);
