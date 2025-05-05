@@ -1,4 +1,5 @@
 import styles from "./FormWrapper.module.css";
+import PropTypes from "prop-types";
 
 const FormWrapper = ({ id, name, isRequired, labelText, inputType }) => {
   return (
@@ -10,3 +11,11 @@ const FormWrapper = ({ id, name, isRequired, labelText, inputType }) => {
 };
 
 export default FormWrapper;
+
+FormWrapper.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  isRequired: PropTypes.bool,
+  labelText: PropTypes.string.isRequired,
+  inputType: PropTypes.string.isRequired,
+};
