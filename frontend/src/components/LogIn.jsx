@@ -1,12 +1,6 @@
-import {
-  data,
-  useFetcher,
-  useNavigate,
-  useOutletContext,
-} from "react-router-dom";
+import { Navigate, useFetcher, useOutletContext } from "react-router-dom";
 import { useEffect } from "react";
 import styles from "./Login.module.css";
-import Form from "./Form";
 import FormWrapper from "./FormWrapper";
 import Button from "./Button";
 import { handleFetch } from "../utils/handleFetch";
@@ -15,20 +9,17 @@ const LogIn = () => {
   const {
     userObject: [userObject, setUserObject],
   } = useOutletContext();
-  const navigate = useNavigate();
   const fetcher = useFetcher();
-
-  useEffect(() => {
-    if (userObject.token) {
-      navigate("/");
-    }
-  }, [userObject.token]);
 
   useEffect(() => {
     if (fetcher.data) {
       setUserObject({ ...userObject, token: fetcher.data.token });
     }
   }, [fetcher.data]);
+
+  if (userObject.token) {
+    return <Navigate replace={true} to={"/"} />;
+  }
 
   return (
     <section className={styles.loginSection}>
@@ -73,5 +64,4 @@ export const handleLogin = async ({ request }) => {
     return res.json();
   }
 };
-
 export default LogIn;
