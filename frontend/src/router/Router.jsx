@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "../src/App";
-import LogIn from "../src/components/LogIn";
+import App from "../App";
+import LogIn, { handleLogin } from "../components/LogIn";
+import SignUp, { handleSignUp } from "../components/Signup";
+import ErrorBoundary from "../components/ErrorBoundary";
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -10,6 +12,12 @@ const Router = () => {
         {
           path: "/log-in",
           element: <LogIn />,
+          action: handleLogin,
+        },
+        {
+          path: "/sign-up",
+          element: <SignUp />,
+          action: handleSignUp,
         },
       ],
     },
