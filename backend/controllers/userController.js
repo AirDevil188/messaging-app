@@ -29,11 +29,16 @@ const createUser = [
       return res.status(422).json([errors]);
     }
     const { username, password } = req.body;
+    const existingUser = await db.findUser(username);
+    if (existingUser) {
+      return res.status(422).json({ message: "User already exists!" });
+    }
     bcryptjs.hash(password, 10, async (err, hashedPassword) => {
       if (err) {
         console.log(err);
         return err;
       }
+
       const user = await db.createUser(username, hashedPassword);
 
       return res.json(user);
