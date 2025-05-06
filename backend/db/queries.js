@@ -46,7 +46,7 @@ async function getMessages(user) {
   try {
     return prisma.messages.findMany({
       where: {
-        user: user,
+        userId: user,
       },
     });
   } catch (err) {
