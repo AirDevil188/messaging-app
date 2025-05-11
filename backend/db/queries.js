@@ -15,6 +15,20 @@ async function findUser(username) {
   }
 }
 
+async function findUsers() {
+  try {
+    return await prisma.user.findMany({
+      select: {
+        username: true,
+        id: true,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
 async function createUser(username, password) {
   try {
     await prisma.user.create({
@@ -42,12 +56,65 @@ async function deserializeUser(id) {
   }
 }
 
-async function getMessages(user) {
+async function getMessages(userId) {
   try {
     return prisma.messages.findMany({
       where: {
-        userId: user,
+        userId: userId,
       },
+    });
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
+async function createMessage(text, user_1, user_2, chatroomId) {
+  try {
+    return prisma.messages.create({
+      data: {
+        text: text,
+        userId: user_1,
+        sentMessagesId: user_2,
+        chatroomId: chatroomId,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
+async function findChatroom(userId, sentToUserId) {
+  try {
+    return prisma.chatroom.findFirst({
+      where: {
+        users: {
+          every: {
+            sentMessages: {
+              every: {
+                sentMessagesId: sentToUserId,
+              },
+            },
+            receivedMessages: {
+              every: {
+                userId: userId,
+              },
+            },
+          },
+        },
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
+async function createChatroom() {
+  try {
+    return prisma.chatroom.create({
+      data: {},
     });
   } catch (err) {
     console.log(err);
@@ -57,7 +124,11 @@ async function getMessages(user) {
 
 module.exports = {
   findUser,
+  findUsers,
+  findChatroom,
   createUser,
   deserializeUser,
   getMessages,
+  createMessage,
+  createChatroom,
 };
