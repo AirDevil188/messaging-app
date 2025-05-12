@@ -4,10 +4,16 @@ const passport = require("passport");
 const messageRouter = Router();
 const messageController = require("../controllers/messageController");
 
-messageRouter.get(
+messageRouter.post(
   "/",
   passport.authenticate("jwt", { session: false }),
-  messageController.getMessages
+  messageController.createMessage
+);
+
+messageRouter.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  messageController.getMessageConversation
 );
 
 module.exports = messageRouter;
