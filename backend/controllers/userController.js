@@ -67,7 +67,14 @@ const logInUser = asyncHandler(async (req, res, next) => {
   )(req, res, next);
 });
 
+const getAllUsers = asyncHandler(async (req, res, next) => {
+  const users = await db.findUsers();
+
+  return res.json(users);
+});
+
 module.exports = {
   logInUser,
   createUser,
+  getAllUsers,
 };
