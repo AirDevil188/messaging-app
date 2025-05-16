@@ -21,6 +21,9 @@ async function findUsers() {
       select: {
         username: true,
         id: true,
+        imageUrl: true,
+        sentMessages: true,
+        receivedMessages: true,
       },
     });
   } catch (err) {
@@ -61,6 +64,31 @@ async function getMessages(userId) {
     return prisma.messages.findMany({
       where: {
         userId: userId,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
+async function getMessageConversation(user_1, user_2) {
+  try {
+    return prisma.messages.findMany({
+      where: {
+        OR: [
+          {
+            userId: user_1,
+            sentMessagesId: user_2,
+          },
+          {
+            userId: user_2,
+            sentMessagesId: user_1,
+          },
+        ],
+      },
+      orderBy: {
+        timestamp: "asc",
       },
     });
   } catch (err) {
@@ -129,6 +157,7 @@ module.exports = {
   createUser,
   deserializeUser,
   getMessages,
+  getMessageConversation,
   createMessage,
   createChatroom,
 };
