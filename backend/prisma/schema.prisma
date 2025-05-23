@@ -14,25 +14,23 @@ datasource db {
 }
 
 model User {
-  id               String     @id @default(uuid())
-  username         String     @unique
-  password         String
-  sentMessages     Messages[] @relation("SentMessages")
-  receivedMessages Messages[] @relation("ReceivedMessages")
-  imageUrl         String     @default("https://res.cloudinary.com/ddxkbe6lh/image/upload/v1747045497/messages_app/wwartcllts0xmbvhp6zd.jpg")
-  chatroom         Chatroom[]
+  id       String     @id @default(uuid())
+  username String     @unique
+  password String
+  messages Messages[]
+  imageUrl String     @default("https://res.cloudinary.com/ddxkbe6lh/image/upload/v1747045497/messages_app/wwartcllts0xmbvhp6zd.jpg")
+  chatroom Chatroom[]
 }
 
 model Messages {
-  id             String   @id @default(uuid())
-  text           String
-  timestamp      DateTime @default(now())
-  user           User     @relation("SentMessages", fields: [userId], references: [id])
-  userId         String
-  sentMessages   User     @relation("ReceivedMessages", fields: [sentMessagesId], references: [id])
-  sentMessagesId String
-  chatroom       Chatroom @relation(fields: [chatroomId], references: [id])
-  chatroomId     String
+  id           String   @id @default(uuid())
+  text         String
+  timestamp    DateTime @default(now())
+  userId       String
+  chatroom     Chatroom @relation(fields: [chatroomId], references: [id])
+  chatroomId   String
+  secondUserId String
+  user         User     @relation(fields: [userId], references: [id])
 }
 
 model Chatroom {
