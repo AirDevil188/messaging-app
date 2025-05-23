@@ -5,45 +5,25 @@ const db = require("../db/queries");
 const getAllMessages = asyncHandler(async (req, res, next) => {
   const userId = req.user.user;
   const messages = await db.getMessages(userId);
-  console.log(messages);
 
   return res.json(messages);
 });
 
-const getMessageConversation = asyncHandler(async (req, res, next) => {
-  const { id } = req.params;
-  const { user } = req.user;
-  const conversation = await db.getMessageConversation(id, user);
-
-  return res.json(conversation);
-});
-
 const createMessage = asyncHandler(async (req, res, next) => {
-  const { text, sentToUserId, userId } = req.body;
-  const conversation = await db.findChatroom(userId, sentToUserId);
+  const { text } = req.body;
+  const { user } = req.user;
+  const { id } = req.params;
+  const chatroom = await db.findChatroom();
 
-  if (!conversation) {
-    const chatroom = await db.createChatroom();
-    const message = await db.createMessage(
-      text,
-      userId,
-      sentToUserId,
-      chatroom.id
-    );
+  if (chatroom) {
+    const message = await db.createMessage(text, user, id, chatroom.id);
     return res.json(message);
   }
-  const message = await db.createMessage(
-    text,
-    userId,
-    sentToUserId,
-    conversation.id
-  );
-
+  const message = await db.createMessage(text, user, id, "");
   return res.json(message);
 });
 
 module.exports = {
-  getMessageConversation,
   createMessage,
   getAllMessages,
 };
