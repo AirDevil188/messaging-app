@@ -133,15 +133,32 @@ async function findChatroom(user_1, user_2) {
   try {
     return prisma.chatroom.findFirst({
       where: {
+        OR: [
+          {
+            messages: {
+              some: {
+                userId: user_1,
+                secondUserId: user_2,
+              },
+            },
+          },
+          {
+            messages: {
+              some: {
+                userId: user_2,
+                secondUserId: user_1,
+              },
+            },
+          },
+        ],
+      },
+
+      include: {
         messages: {
-          every: {
-            userId: user_1,
-            secondUserId: user_2,
+          include: {
+            user: {},
           },
         },
-      },
-      include: {
-        messages: {},
         users: {
           omit: {
             password: true,
