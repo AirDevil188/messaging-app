@@ -2,8 +2,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "../App";
 import LogIn, { handleLogin } from "../components/LogIn";
 import SignUp, { handleSignUp } from "../components/Signup";
-import { getMessages } from "../utils/loaders";
-import Messages from "../components/Messages";
+import Users, { handleMessageSubmit } from "../components/Users";
+import { getUsers } from "../utils/loaders";
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -11,9 +11,7 @@ const Router = () => {
       element: <App />,
       children: [
         {
-          path: "/messages",
-          element: <Messages />,
-          loader: getMessages,
+          path: "/",
         },
         {
           path: "/log-in",
@@ -24,6 +22,12 @@ const Router = () => {
           path: "/sign-up",
           element: <SignUp />,
           action: handleSignUp,
+        },
+        {
+          path: "all-users",
+          element: <Users />,
+          loader: getUsers,
+          action: handleMessageSubmit,
         },
       ],
     },
