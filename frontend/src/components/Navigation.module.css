@@ -1,0 +1,33 @@
+.sideBarMenu {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.navButton {
+  height: 3rem;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+}
+
+ul {
+  list-style: none;
+  cursor: pointer;
+}
+
+.logo {
+  display: none;
+}
+@media (min-width: 800px) {
+  .sideBarMenu {
+    display: flex;
+    flex-flow: column nowrap;
+    color: var(--sidebar-color);
+  }
+
+  .logo {
+    display: block;
+    width: 30px;
+    height: 30px;
+  }
+}
