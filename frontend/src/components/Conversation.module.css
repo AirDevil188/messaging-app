@@ -1,0 +1,82 @@
+.conversationContainer {
+  display: flex;
+  flex: 1;
+  background-image: radial-gradient(rgb(164 6 229 / 30%) 1px, transparent 1px);
+  background-size: 15px 15px;
+  justify-content: flex-end;
+}
+
+.right {
+  justify-content: right;
+}
+
+.left {
+  justify-content: left;
+}
+
+.conversationWrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+}
+
+.conversationInfo {
+  display: flex;
+  flex-flow: row nowrap;
+  /* gap: 10px; */
+}
+
+.conversationImage img {
+  width: 50px;
+  height: 50px;
+}
+
+.conversationImage > img {
+  align-self: center;
+}
+
+.conversationUsername {
+  align-self: center;
+}
+
+.messageContent {
+  background-color: rebeccapurple;
+  padding: 1rem;
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  align-self: flex-end;
+}
+
+.messageContentSecondUser {
+  background-color: indianred;
+  padding: 1rem;
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  align-self: flex-start;
+}
+
+.senderInfo {
+  align-self: flex-end;
+  color: #000;
+}
+
+.senderInfo > span,
+.secondUserSenderInfo > span {
+  margin-right: 5px;
+}
+
+.secondUserSenderInfo {
+  align-self: flex-start;
+  color: #000;
+}
+
+.message {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 10px;
+  padding: 1rem;
+  flex-basis: 100px;
+  color: #fff;
+}
