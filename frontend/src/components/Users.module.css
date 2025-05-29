@@ -1,0 +1,55 @@
+img {
+  border-radius: 50%;
+  width: 160px;
+  height: 160px;
+}
+
+.user {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.usersSection {
+  display: flex;
+  flex-flow: column nowrap;
+  grid-column: 1/2;
+  width: 40%;
+}
+
+.userList {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.conversationSection {
+  display: flex;
+  flex-flow: column nowrap;
+  grid-column: 2/4;
+  width: 60%;
+}
+
+.userAvatarSection {
+  display: flex;
+  justify-content: space-between;
+}
+
+.userInfo > img {
+  width: 100px;
+  height: auto;
+}
+
+.userInfo {
+  display: flex;
+  order: 1;
+  align-items: center;
+}
+
+.userButtonSection {
+  order: 2;
+}
