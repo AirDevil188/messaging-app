@@ -18,7 +18,7 @@ const LogIn = () => {
   }, [fetcher.data]);
 
   if (userObject.token) {
-    return <Navigate replace={true} to={"/"} />;
+    return <Navigate replace={true} to={"/messages"} />;
   }
 
   return (
