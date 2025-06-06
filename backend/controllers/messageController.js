@@ -3,10 +3,10 @@ const asyncHandler = require("express-async-handler");
 const db = require("../db/queries");
 
 const getAllMessages = asyncHandler(async (req, res, next) => {
-  const userId = req.user.user;
-  const messages = await db.getMessages(userId);
+  const { user } = req.user;
 
-  return res.json(messages);
+  const { users } = await db.getAllChatRooms(user);
+  return res.json(users);
 });
 
 const createMessage = asyncHandler(async (req, res, next) => {
@@ -17,6 +17,7 @@ const createMessage = asyncHandler(async (req, res, next) => {
 
   if (chatroom) {
     const message = await db.createMessage(text, user, id, chatroom.id);
+
     return res.json(message);
   }
   const message = await db.createMessage(text, user, id, "");
