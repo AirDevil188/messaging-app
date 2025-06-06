@@ -8,13 +8,11 @@ export const getMessages = async () => {
   }
 
   if (res.status === 401) {
-    const err = new Error("You are not authorized to access this page.");
-    return err;
+    throw new Error("You are not authorized to access this page!");
   }
 
   if (res.status === 404) {
-    const err = new Error("There are no messages!");
-    return err;
+    throw new Error("There are no messages!");
   }
 };
 
@@ -25,12 +23,25 @@ export const getUsers = async () => {
   }
 
   if (res.status === 401) {
-    const err = new Error("You are not authorized to access this page");
-    return err;
+    throw new Error("You are not authorized to access this page!");
   }
 
   if (res.status === 404) {
-    const err = new Error("There are no users!");
-    return err;
+    throw new Error("Users not found!");
+  }
+};
+
+export const getAllChatRooms = async () => {
+  const res = await handleFetch("/messages", undefined, "GET");
+  if (res.ok) {
+    return await res.json();
+  }
+
+  if (res.status === 401) {
+    throw new Error("You are not authorized to access this page!");
+  }
+
+  if (res.status === 404) {
+    throw new Error("Messages Not Found!");
   }
 };
