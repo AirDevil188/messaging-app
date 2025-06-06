@@ -1,13 +1,21 @@
-import { useLoaderData, useOutletContext } from "react-router-dom";
+import {
+  useLoaderData,
+  useLocation,
+  useOutletContext,
+  useRouteError,
+} from "react-router-dom";
 import styles from "./Users.module.css";
 import { handleFetch } from "../utils/handleFetch";
 
 import { useRef, useState } from "react";
 import Conversation from "./Conversation";
 import Button from "./Button";
+import UserList from "./UserList";
 
 const Users = () => {
   const users = useLoaderData();
+  const errors = useRouteError();
+
   const {
     userObject: [userObject],
   } = useOutletContext();
@@ -24,9 +32,8 @@ const Users = () => {
       "GET"
     );
     if (res.ok) {
-      const username = users.find((user) => user.id === userId.current);
-
-      setUser(username);
+      const userObject = users.find((user) => user.id === userId.current);
+      setUser(userObject);
       const data = await res.json();
       setConversation(data);
 
@@ -41,27 +48,13 @@ const Users = () => {
           <h3>All Users</h3>
         </section>
         <section className={styles.usersContainer}>
-          <ul className={styles.userList}>
-            {users.map((user) => {
-              return (
-                <li key={user.id} className={`${styles.user} ${styles.flex}`}>
-                  <section className={styles.userInfo}>
-                    <img src={user.imageUrl} alt="User avatar" />
-                    <span>{user.username}</span>
-                  </section>
-
-                  <section className={styles.userButtonSection}>
-                    <Button
-                      text={"SEND"}
-                      type={"submit"}
-                      onClick={handleUserMessages}
-                      id={user.id}
-                    />
-                  </section>
-                </li>
-              );
-            })}
-          </ul>
+          {users ? (
+            <UserList
+              users={users}
+              handleUserMessages={handleUserMessages}
+              userObject={userObject}
+            />
+          ) : null}
         </section>
       </section>
       <section className={styles.conversationSection}>
@@ -70,6 +63,7 @@ const Users = () => {
             user={user}
             conversation={conversation}
             userObject={userObject}
+            setConversation={setConversation}
           />
         ) : null}
       </section>
