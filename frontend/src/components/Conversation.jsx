@@ -3,11 +3,23 @@ import styles from "./Conversation.module.css";
 import { useFetcher } from "react-router-dom";
 import Button from "./Button";
 import PropTypes from "prop-types";
+import { useEffect } from "react";
 
-const Conversation = ({ user, conversation, setLoading, userObject }) => {
+const Conversation = ({
+  user,
+  conversation,
+  setConversation,
+  setLoading,
+  userObject,
+}) => {
   const fetcher = useFetcher();
 
-  console.log(userObject.user);
+  useEffect(() => {
+    if (fetcher.state === "loading") {
+      setConversation(fetcher.data);
+    }
+  }, [fetcher.state]);
+
   return (
     <>
       <section className={styles.conversationInfo}>
@@ -70,6 +82,7 @@ const Conversation = ({ user, conversation, setLoading, userObject }) => {
 Conversation.propTypes = {
   user: PropTypes.object.isRequired,
   conversation: PropTypes.object.isRequired,
+  setConversation: PropTypes.object.isRequired,
   userObject: PropTypes.object.isRequired,
   setLoading: PropTypes.bool.isRequired,
 };
