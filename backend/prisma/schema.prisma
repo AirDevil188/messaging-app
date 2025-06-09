@@ -35,6 +35,7 @@ model Messages {
 
 model Chatroom {
   id       String     @id @unique @default(uuid())
+  name     String?
   messages Messages[]
   users    User[]
 }
