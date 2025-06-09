@@ -98,6 +98,28 @@ async function getMessageConversation(userId, id) {
   }
 }
 
+async function getGlobalChatroom() {
+  try {
+    return prisma.chatroom.findFirst({
+      include: {
+        users: {
+          omit: {
+            password: true,
+            imageUrl: true,
+          },
+        },
+        messages: {},
+      },
+      where: {
+        name: "Global",
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
 async function createMessage(text, user_1, user_2, chatroomId) {
   try {
     return prisma.chatroom.upsert({
@@ -222,6 +244,8 @@ module.exports = {
   findUsers,
   findChatroom,
   getAllChatRooms,
+  getGlobalChatroom,
+
   createUser,
   deserializeUser,
   getMessages,
