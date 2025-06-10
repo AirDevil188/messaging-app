@@ -3,7 +3,11 @@ import App from "../App";
 import LogIn, { handleLogin } from "../components/LogIn";
 import SignUp, { handleSignUp } from "../components/Signup";
 import Users, { handleMessageSubmit } from "../components/Users";
-import { getUsers } from "../utils/loaders";
+import { getAllChatRooms, getGlobalChatroom, getUsers } from "../utils/loaders";
+import ErrorElement from "../components/ErrorElement";
+import GlobalChatroom, {
+  handleGlobalMessageSubmit,
+} from "../components/GlobalChatroom";
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -17,17 +21,33 @@ const Router = () => {
           path: "/log-in",
           element: <LogIn />,
           action: handleLogin,
+          errorElement: <ErrorElement />,
         },
         {
           path: "/sign-up",
           element: <SignUp />,
           action: handleSignUp,
+          errorElement: <ErrorElement />,
         },
         {
-          path: "all-users",
+          path: "/all-users",
           element: <Users />,
           loader: getUsers,
           action: handleMessageSubmit,
+        },
+        {
+          path: "/messages",
+          element: <Users />,
+          loader: getAllChatRooms,
+          action: handleMessageSubmit,
+          errorElement: <ErrorElement />,
+        },
+        {
+          path: "/global",
+          loader: getGlobalChatroom,
+          action: handleGlobalMessageSubmit,
+          element: <GlobalChatroom />,
+          errorElement: <ErrorElement />,
         },
       ],
     },
