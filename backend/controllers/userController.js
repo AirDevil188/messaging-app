@@ -73,8 +73,17 @@ const getAllUsers = asyncHandler(async (req, res, next) => {
   return res.json(users);
 });
 
+const getLoggedInUser = async (req, res, next) => {
+  const { user } = req.user;
+
+  const loggedInUser = await db.getLoggedInUser(user);
+
+  return res.json(loggedInUser);
+};
+
 module.exports = {
   logInUser,
   createUser,
   getAllUsers,
+  getLoggedInUser,
 };

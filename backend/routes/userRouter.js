@@ -14,4 +14,10 @@ userRouter.get(
   userController.getAllUsers
 );
 
+userRouter.get(
+  "/profile",
+  passport.authenticate("jwt", { session: false }),
+  userController.getLoggedInUser
+);
+
 module.exports = userRouter;
