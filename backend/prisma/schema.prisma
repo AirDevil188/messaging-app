@@ -29,7 +29,7 @@ model Messages {
   userId       String
   chatroom     Chatroom @relation(fields: [chatroomId], references: [id])
   chatroomId   String
-  secondUserId String
+  secondUserId String?
   user         User     @relation(fields: [userId], references: [id])
 }
 
