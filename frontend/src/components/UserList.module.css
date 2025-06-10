@@ -1,0 +1,35 @@
+.userList {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.userAvatarSection {
+  display: flex;
+  justify-content: space-between;
+}
+
+.userInfo > img {
+  width: 100px;
+  height: auto;
+}
+
+.userInfo {
+  display: flex;
+  order: 1;
+  align-items: center;
+}
+
+.userButtonSection {
+  order: 2;
+}
+
+.user {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex {
+  display: flex;
+}
