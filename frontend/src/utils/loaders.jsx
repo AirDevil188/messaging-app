@@ -32,7 +32,7 @@ export const getUsers = async () => {
 };
 
 export const getGlobalChatroom = async () => {
-  const res = await handleFetch("/global", undefined, "GET");
+  const res = await handleFetch("/chatroom/global", undefined, "GET");
   if (res.ok) {
     return await res.json();
   }
