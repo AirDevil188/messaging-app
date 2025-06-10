@@ -2,7 +2,8 @@ import { FiMessageSquare, FiUsers, FiLogOut } from "react-icons/fi";
 import { RiGlobalLine } from "react-icons/ri";
 import styles from "./Navigation.module.css";
 
-const Navigation = () => {
+const Navigation = ({ userObject }) => {
+  console.log(userObject, "navigation userObj");
   return (
     <header>
       <nav>
@@ -21,6 +22,15 @@ const Navigation = () => {
             <a href="/all-users">
               <FiUsers size={40} />
             </a>
+          </li>
+        </ul>
+        <ul className={styles.profileMenu}>
+          <li className={styles.navButton}>
+            <img
+              src={userObject.userImage}
+              alt="User avatar!"
+              id={styles.userAvatar}
+            />
           </li>
           <li className={styles.navButton}>
             <FiLogOut size={40} />

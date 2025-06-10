@@ -1,11 +1,15 @@
 .sideBarMenu {
   display: flex;
   flex-flow: row nowrap;
+  width: 100%;
+}
+
+nav {
+  display: flex;
 }
 
 .navButton {
-  height: 3rem;
-  width: 100%;
+  flex: 1 0 20%;
   text-align: center;
   color: #fff;
 }
@@ -15,19 +19,46 @@ ul {
   cursor: pointer;
 }
 
-.logo {
-  display: none;
+#userAvatar {
+  height: auto;
+  width: 40px;
+  padding: 2px;
 }
+
+.profileMenu {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+}
+
+a {
+  color: #fff;
+}
+
 @media (min-width: 800px) {
+  nav {
+    flex-flow: column nowrap;
+    height: 100%;
+    justify-content: space-between;
+  }
+
+  .profileMenu {
+    flex-flow: column nowrap;
+    gap: 30px;
+  }
+
   .sideBarMenu {
     display: flex;
     flex-flow: column nowrap;
-    color: var(--sidebar-color);
+    height: 100%;
   }
 
-  .logo {
-    display: block;
-    width: 30px;
-    height: 30px;
+  .navButton {
+    flex: 0;
+  }
+
+  #userAvatar {
+    width: 80%;
+    height: auto;
   }
 }
