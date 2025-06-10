@@ -7,6 +7,7 @@ const generateToken = async (user) => {
   return jwtWebToken.sign(
     {
       user: user.id,
+      userImage: user.imageUrl,
     },
     process.env.SECRET,
     {
