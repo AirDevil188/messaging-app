@@ -8,19 +8,21 @@ function App() {
 
   useEffect(() => {
     const token = validateToken();
+    console.log(token);
 
     if (token) {
       setUserObject({
         ...userObject,
         token: localStorage.getItem("token"),
         user: token.user,
+        userImage: token.userImage,
       });
     }
   }, [userObject.token]);
 
   return (
     <>
-      <Navigation />
+      <Navigation userObject={userObject} />
       <Outlet
         context={{
           userObject: [userObject, setUserObject],
