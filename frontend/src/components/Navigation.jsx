@@ -13,7 +13,7 @@ const Navigation = () => {
             </a>
           </li>
           <li className={styles.navButton}>
-            <a>
+            <a href="/global">
               <RiGlobalLine size={40} />
             </a>
           </li>
