@@ -52,7 +52,7 @@ export const handleLogin = async ({ request }) => {
   };
 
   const res = await handleFetch("/log-in", submission, "post");
-  console.log(res);
+
   if (res.ok) {
     const data = await res.json();
     const user = {

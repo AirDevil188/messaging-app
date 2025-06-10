@@ -49,10 +49,8 @@ const Users = () => {
   };
 
   const handleSearch = (e) => {
-    console.log(searchInput);
     setSearchInput(e.target.value);
     if (searchInput === "") {
-      console.log("EMPTY");
       setUserList(users);
     } else {
       setUserList(

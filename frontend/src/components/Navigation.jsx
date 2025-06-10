@@ -3,7 +3,6 @@ import { RiGlobalLine } from "react-icons/ri";
 import styles from "./Navigation.module.css";
 
 const Navigation = ({ userObject }) => {
-  console.log(userObject, "navigation userObj");
   return (
     <header>
       <nav>

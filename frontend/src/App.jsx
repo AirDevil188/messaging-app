@@ -8,7 +8,6 @@ function App() {
 
   useEffect(() => {
     const token = validateToken();
-    console.log(token);
 
     if (token) {
       setUserObject({
