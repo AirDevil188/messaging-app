@@ -15,6 +15,22 @@ async function findUser(username) {
   }
 }
 
+async function getLoggedInUser(userId) {
+  try {
+    return await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      omit: {
+        password: true,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
 async function findUsers() {
   try {
     return await prisma.user.findMany({
@@ -290,6 +306,7 @@ async function getAllChatRooms(userId) {
 module.exports = {
   findUser,
   findUsers,
+  getLoggedInUser,
   findChatroom,
   getAllChatRooms,
   getGlobalChatroom,
