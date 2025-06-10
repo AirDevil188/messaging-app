@@ -9,12 +9,11 @@ import { handleFetch } from "../utils/handleFetch";
 
 import { useRef, useState } from "react";
 import Conversation from "./Conversation";
-import Button from "./Button";
 import UserList from "./UserList";
 
 const Users = () => {
   const users = useLoaderData();
-  const errors = useRouteError();
+  const location = useLocation();
 
   const {
     userObject: [userObject],
@@ -45,7 +44,11 @@ const Users = () => {
     <main className={styles.mainContainer}>
       <section className={styles.usersSection}>
         <section className={styles.headingSection}>
-          <h3>All Users</h3>
+          {location.pathname === "/messages" ? (
+            <h3>All Messages</h3>
+          ) : (
+            <h3>All Users</h3>
+          )}
         </section>
         <section className={styles.usersContainer}>
           {users ? (
