@@ -102,16 +102,66 @@ async function getGlobalChatroom() {
   try {
     return prisma.chatroom.findFirst({
       include: {
-        users: {
-          omit: {
-            password: true,
-            imageUrl: true,
+        messages: {
+          include: {
+            user: {
+              omit: {
+                password: true,
+                imageUrl: true,
+              },
+            },
           },
         },
-        messages: {},
       },
       where: {
         name: "Global",
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
+async function createMessageGlobalChatroom(text, user_1, chatroomId) {
+  try {
+    return prisma.chatroom.upsert({
+      where: {
+        id: chatroomId,
+      },
+      update: {
+        users: {
+          connect: { id: user_1 },
+        },
+        messages: {
+          create: {
+            text: text,
+            userId: user_1,
+          },
+        },
+      },
+      create: {
+        messages: {
+          create: {
+            text: text,
+            userId: user_1,
+          },
+        },
+      },
+      omit: {
+        id: true,
+      },
+      include: {
+        messages: {
+          include: {
+            user: {
+              omit: {
+                password: true,
+                imageUrl: true,
+              },
+            },
+          },
+        },
       },
     });
   } catch (err) {
@@ -172,6 +222,16 @@ async function createMessage(text, user_1, user_2, chatroomId) {
 async function findChatroom(user_1, user_2) {
   try {
     return prisma.chatroom.findFirst({
+      where: {
+        messages: {
+          some: {
+            OR: [
+              { secondUserId: user_2, userId: user_1 },
+              { secondUserId: user_1, userId: user_2 },
+            ],
+          },
+        },
+      },
       include: {
         messages: {
           include: {
@@ -181,12 +241,6 @@ async function findChatroom(user_1, user_2) {
                 imageUrl: true,
               },
             },
-          },
-          where: {
-            OR: [
-              { secondUserId: user_2, userId: user_1 },
-              { secondUserId: user_1, userId: user_2 },
-            ],
           },
         },
       },
@@ -199,40 +253,34 @@ async function findChatroom(user_1, user_2) {
 
 async function getAllChatRooms(userId) {
   try {
-    const [users] = await prisma.chatroom.findMany({
+    return prisma.chatroom.findMany({
       where: {
-        OR: [
-          {
-            messages: {
-              some: {
-                userId: userId,
-              },
-            },
-          },
-          {
-            messages: {
-              some: {
-                secondUserId: userId,
-              },
-            },
-          },
-        ],
+        name: null,
       },
       include: {
         users: {
-          select: {
-            username: true,
-            id: true,
-            messages: true,
-            imageUrl: true,
+          where: {
+            OR: [
+              {
+                messages: {
+                  some: {
+                    secondUserId: userId,
+                  },
+                },
+              },
+              {
+                messages: {
+                  every: { userId: userId },
+                },
+              },
+            ],
+          },
+          omit: {
+            password: true,
           },
         },
       },
-      omit: {
-        id: true,
-      },
     });
-    return users;
   } catch (err) {
     console.log(err);
     return err;
@@ -245,10 +293,10 @@ module.exports = {
   findChatroom,
   getAllChatRooms,
   getGlobalChatroom,
-
   createUser,
   deserializeUser,
   getMessages,
   getMessageConversation,
   createMessage,
+  createMessageGlobalChatroom,
 };
