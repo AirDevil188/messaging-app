@@ -10,7 +10,7 @@ import { handleFetch } from "../utils/handleFetch";
 import { useEffect, useRef, useState } from "react";
 import Conversation from "./Conversation";
 import UserList from "./UserList";
-import Button from "./Button";
+
 import PropTypes from "prop-types";
 
 const Users = () => {
