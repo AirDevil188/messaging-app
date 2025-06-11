@@ -2,8 +2,20 @@ import { FiMessageSquare, FiUsers, FiLogOut } from "react-icons/fi";
 import { RiGlobalLine } from "react-icons/ri";
 import styles from "./Navigation.module.css";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
-const Navigation = ({ userObject }) => {
+const Navigation = ({ userObject, setUserObject }) => {
+  const navigate = useNavigate();
+  const handleLogOut = () => {
+    localStorage.clear();
+    setUserObject({
+      ...userObject,
+      username: null,
+      token: null,
+      imageUrl: null,
+    });
+    return navigate("/log-in", { replace: true });
+  };
   return (
     <header>
       <nav>
@@ -34,7 +46,7 @@ const Navigation = ({ userObject }) => {
               />
             </a>
           </li>
-          <li className={styles.navButton}>
+          <li className={styles.navButton} onClick={handleLogOut}>
             <FiLogOut size={40} />
           </li>
         </ul>
@@ -45,6 +57,7 @@ const Navigation = ({ userObject }) => {
 
 Navigation.propTypes = {
   userObject: PropTypes.object.isRequired,
+  setUserObject: PropTypes.bool.isRequired,
 };
 
 export default Navigation;
