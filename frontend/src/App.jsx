@@ -21,7 +21,9 @@ function App() {
 
   return (
     <>
-      <Navigation userObject={userObject} />
+      {userObject.token ? (
+        <Navigation userObject={userObject} setUserObject={setUserObject} />
+      ) : null}
       <Outlet
         context={{
           userObject: [userObject, setUserObject],
