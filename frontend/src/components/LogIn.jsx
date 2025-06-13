@@ -1,5 +1,5 @@
 import { Navigate, useFetcher, useOutletContext } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Login.module.css";
 import FormWrapper from "./FormWrapper";
 import Button from "./Button";
@@ -10,6 +10,13 @@ const LogIn = () => {
     userObject: [userObject, setUserObject],
   } = useOutletContext();
   const fetcher = useFetcher();
+  const [errors, setErrors] = useState(null);
+
+  useEffect(() => {
+    if (fetcher.data?.status === 401) {
+      setErrors(fetcher.data.message);
+    }
+  });
 
   useEffect(() => {
     if (fetcher.data) {
@@ -130,6 +137,11 @@ const LogIn = () => {
           </section>
           <hr />
           <section className={styles.loginFormSection}>
+            {errors ? (
+              <section className={styles.errorSection}>
+                <p>{errors}</p>
+              </section>
+            ) : null}
             <fetcher.Form method={"post"}>
               <FormWrapper
                 id={"username"}
@@ -137,6 +149,7 @@ const LogIn = () => {
                 inputType={"text"}
                 isRequired={true}
                 placeholder={"Username"}
+                className={errors ? styles.notValid : null}
               ></FormWrapper>
               <FormWrapper
                 id={"password"}
@@ -144,6 +157,7 @@ const LogIn = () => {
                 inputType={"password"}
                 isRequired={true}
                 placeholder={"Password"}
+                className={errors ? styles.notValid : null}
               ></FormWrapper>
               <Button text={"Sign In"} className={styles.loginButton}></Button>
             </fetcher.Form>
