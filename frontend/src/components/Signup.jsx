@@ -8,12 +8,47 @@ import styles from "./SignUp.module.css";
 import FormWrapper from "./FormWrapper";
 import Button from "./Button";
 import { handleFetch } from "../utils/handleFetch";
+import { useEffect, useState } from "react";
 
 const SignUp = () => {
   const fetcher = useFetcher();
+
   const {
     userObject: [userObject, setUserObject],
   } = useOutletContext();
+  const [errors, setErrors] = useState(null);
+  const [errorInputs, setErrorInputs] = useState({});
+
+  useEffect(() => {
+    if (fetcher.data) {
+      setErrors(fetcher.data[0].errors);
+    }
+  }, [fetcher.data]);
+
+  useEffect(() => {
+    if (errors) {
+      errors.map((error) => {
+        switch (error.path) {
+          case "username":
+            setErrorInputs((prevObject) => ({ ...prevObject, username: true }));
+            break;
+
+          case "password":
+            setErrorInputs((prevObject) => ({ ...prevObject, password: true }));
+
+            break;
+
+          case "confirm_password":
+            setErrorInputs((prevObject) => ({
+              ...prevObject,
+              confirm_password: true,
+            }));
+
+            break;
+        }
+      });
+    }
+  }, [errors]);
 
   if (userObject.token) {
     return <Navigate to={"/"} replace={true} />;
@@ -28,6 +63,13 @@ const SignUp = () => {
           </section>
           <hr />
           <section className={styles.signupFormSection}>
+            {errors ? (
+              <section className={styles.errorSection}>
+                {errors.map((error) => {
+                  return <p>{error.msg}</p>;
+                })}
+              </section>
+            ) : null}
             <fetcher.Form method="post">
               <FormWrapper
                 inputType={"text"}
@@ -35,6 +77,7 @@ const SignUp = () => {
                 name={"username"}
                 isRequired={true}
                 placeholder={"Username"}
+                className={errorInputs?.username ? styles.notValid : null}
               />
               <FormWrapper
                 inputType={"password"}
@@ -42,6 +85,7 @@ const SignUp = () => {
                 name={"password"}
                 isRequired={true}
                 placeholder={"Password"}
+                className={errorInputs?.password ? styles.notValid : null}
               ></FormWrapper>
               <FormWrapper
                 inputType={"password"}
@@ -49,6 +93,9 @@ const SignUp = () => {
                 name={"confirm_password"}
                 isRequired={true}
                 placeholder={"Confirm Password"}
+                className={
+                  errorInputs?.confirm_password ? styles.notValid : null
+                }
               ></FormWrapper>
               <Button
                 text={"Sign up"}
@@ -92,6 +139,10 @@ export const handleSignUp = async ({ request }) => {
   const res = await handleFetch("/sign-up", submission, "post");
   if (res.ok) {
     return redirect("/");
+  }
+
+  if (res.status === 422) {
+    return res.json();
   }
 };
 
