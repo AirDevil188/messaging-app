@@ -131,6 +131,10 @@ input:focus-visible {
   border: 1px solid red;
 }
 
+.errorSection > ul > li {
+  list-style: inside;
+}
+
 /* CSS Animations */
 .fadeIn {
   opacity: 1;
