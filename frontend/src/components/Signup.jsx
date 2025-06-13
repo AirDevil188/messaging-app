@@ -20,32 +20,65 @@ const SignUp = () => {
   }
 
   return (
-    <section className={styles.signUpSection}>
-      <fetcher.Form method="post">
-        <FormWrapper
-          labelText={"Username: "}
-          inputType={"text"}
-          id={"username"}
-          name={"username"}
-          isRequired={true}
-        />
-        <FormWrapper
-          labelText={"Password: "}
-          inputType={"password"}
-          id={"password"}
-          name={"password"}
-          isRequired={true}
-        ></FormWrapper>
-        <FormWrapper
-          labelText={"Confirm Password: "}
-          inputType={"password"}
-          id={"confirm_password"}
-          name={"confirm_password"}
-          isRequired={true}
-        ></FormWrapper>
-        <Button text={"Log In"} type={"submit"} />
-      </fetcher.Form>
-    </section>
+    <main>
+      <section className={styles.signupSection}>
+        <section className={styles.signupWrapper}>
+          <section className={styles.headingSection}>
+            <h1>Create a Account</h1>
+          </section>
+          <hr />
+          <section className={styles.signupFormSection}>
+            <fetcher.Form method="post">
+              <FormWrapper
+                inputType={"text"}
+                id={"username"}
+                name={"username"}
+                isRequired={true}
+                placeholder={"Username"}
+              />
+              <FormWrapper
+                inputType={"password"}
+                id={"password"}
+                name={"password"}
+                isRequired={true}
+                placeholder={"Password"}
+              ></FormWrapper>
+              <FormWrapper
+                inputType={"password"}
+                id={"confirm_password"}
+                name={"confirm_password"}
+                isRequired={true}
+                placeholder={"Confirm Password"}
+              ></FormWrapper>
+              <Button
+                text={"Sign up"}
+                type={"submit"}
+                className={styles.signupButton}
+              />
+            </fetcher.Form>
+          </section>
+        </section>
+      </section>
+      <section className={`${styles.loginSection} ${styles.fadeIn}`}>
+        <section className={styles.loginWrapper}>
+          <section className={styles.headingSection}>
+            <h1>Already have an account?</h1>
+          </section>
+          <section className={styles.smallSection}>
+            <small>We are happy to see you back!</small>
+          </section>
+          <section className={styles.buttonSection}>
+            <a href="/log-in">
+              <Button
+                type={"button"}
+                text={"Sign in"}
+                className={styles.loginButton}
+              />
+            </a>
+          </section>
+        </section>
+      </section>
+    </main>
   );
 };
 
