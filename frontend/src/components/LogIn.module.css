@@ -1,0 +1,176 @@
+:root {
+  --label-bg-color: #ecf5f3;
+  --primary-button-bg-color: #27b498;
+  --secondary-button-bg-color: #fff;
+  --primary-button-font-color: #fff;
+  --secondary-button-font-color: #000;
+  --primary-heading-font-color: #fff;
+  --secondary-heading-font-color: #000;
+}
+
+main {
+  display: flex;
+  flex-flow: column wrap;
+  grid-column: 1/4;
+}
+
+svg {
+  max-width: 50px;
+  height: auto;
+}
+
+button {
+  margin-top: 10px;
+  border-radius: 1rem;
+  width: 190px;
+  height: 50px;
+  font-size: 1.2rem;
+  padding: 0.5rem, 1rem;
+  text-align: center;
+  font-weight: 900;
+  text-transform: capitalize;
+  border: none;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
+
+input {
+  border: none;
+  border-radius: 10px;
+  background-color: var(--label-bg-color);
+  width: 300px;
+  height: 40px;
+  padding: 1rem;
+}
+
+input:focus,
+input:focus-visible {
+  outline: none;
+  border: 3px solid #27b498;
+}
+
+.loginButton {
+  color: var(--primary-button-font-color);
+  background-color: var(--primary-button-bg-color);
+  margin-bottom: 10px;
+}
+
+.signinButton {
+  color: var(--secondary-button-font-color);
+  background-color: var(--secondary-button-bg-color);
+}
+
+.loginButton {
+  margin-top: 10px;
+  border-radius: 1rem;
+  width: 190px;
+  height: 50px;
+  font-size: 1.2rem;
+  padding: 0.5rem, 1rem;
+  text-align: center;
+  font-weight: 900;
+  text-transform: capitalize;
+  border: none;
+}
+.loginButton:focus {
+  outline: none;
+}
+
+.loginWrapper {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 10px;
+}
+
+.loginSection {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  color: var(--secondary-heading-font-color);
+}
+
+.socialIconsSection > ul {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 5px;
+}
+.loginFormSection {
+  display: flex;
+  flex-flow: column wrap;
+  text-align: center;
+}
+
+.loginFormSection > form {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+}
+
+.signupSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../assets/abstract_background.webp");
+  text-align: center;
+  color: var(--primary-heading-font-color);
+  flex: 1;
+}
+
+.headingSection {
+  font-size: 2rem;
+}
+
+/*  CSS animations */
+.fadeIn {
+  opacity: 1;
+  animation-name: fadeIn;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 550px) {
+  input {
+    width: 450px;
+  }
+
+  .headingSection {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 800px) {
+  main {
+    flex-flow: row wrap;
+  }
+
+  .loginSection {
+    width: 60%;
+    align-items: center;
+    padding-top: 5rem;
+  }
+
+  .signupSection {
+    flex-flow: column wrap;
+    width: 40%;
+  }
+
+  .smallSection {
+    font-size: 2rem;
+    font-weight: 300;
+  }
+}
