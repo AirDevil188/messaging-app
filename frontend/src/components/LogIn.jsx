@@ -139,7 +139,9 @@ const LogIn = () => {
           <section className={styles.loginFormSection}>
             {errors ? (
               <section className={styles.errorSection}>
-                <p>{errors}</p>
+                <ul>
+                  <li>{errors}</li>
+                </ul>
               </section>
             ) : null}
             <fetcher.Form method={"post"}>
