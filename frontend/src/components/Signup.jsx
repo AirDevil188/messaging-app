@@ -65,9 +65,11 @@ const SignUp = () => {
           <section className={styles.signupFormSection}>
             {errors ? (
               <section className={styles.errorSection}>
-                {errors.map((error) => {
-                  return <p>{error.msg}</p>;
-                })}
+                <ul>
+                  {errors.map((error) => {
+                    return <li key={error.path}>{error.msg}</li>;
+                  })}
+                </ul>
               </section>
             ) : null}
             <fetcher.Form method="post">
