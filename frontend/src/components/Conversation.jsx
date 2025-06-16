@@ -4,6 +4,7 @@ import { useFetcher } from "react-router-dom";
 import Button from "./Button";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
+import { IoMdArrowBack } from "react-icons/io";
 
 const Conversation = ({
   user,
@@ -11,6 +12,9 @@ const Conversation = ({
   setConversation,
   setLoading,
   userObject,
+  toggleConversation,
+  setToggleConversation,
+  setUser,
 }) => {
   const fetcher = useFetcher();
 
@@ -20,14 +24,24 @@ const Conversation = ({
     }
   }, [fetcher.state]);
 
+  const handleBackButton = () => {
+    setToggleConversation(() => setToggleConversation(!toggleConversation));
+    setUser(null);
+  };
+
   return (
     <>
       <section className={styles.conversationInfo}>
+        <section className={styles.conversationButton}>
+          <IoMdArrowBack onClick={handleBackButton} />
+        </section>
         <section className={styles.conversationImage}>
-          <img src={user.imageUrl} alt="User avatar" />
+          {user?.imageUrl ? (
+            <img src={user.imageUrl} alt="User avatar" />
+          ) : null}
         </section>
         <section className={styles.conversationUsername}>
-          <span>{user.username}</span>
+          <span>{user?.username}</span>
         </section>
       </section>
       <section className={`${styles.conversationContainer}`}>
@@ -66,7 +80,12 @@ const Conversation = ({
       </section>
       <section className={styles.formContainer}>
         <fetcher.Form method="POST">
-          <input type="hidden" name="userId" id="userId" value={user.id} />
+          <input
+            type="hidden"
+            name={user ? "userId" : "chatroomId"}
+            id={user ? "userId" : "chatroomId"}
+            value={user ? user.id : conversation.id}
+          />
           <section className={styles.formGroup}>
             <input type="text" name="text" id="text" required={true} />
           </section>
@@ -81,10 +100,13 @@ const Conversation = ({
 
 Conversation.propTypes = {
   user: PropTypes.object.isRequired,
+  setUser: PropTypes.bool.isRequired,
   conversation: PropTypes.object.isRequired,
   setConversation: PropTypes.object.isRequired,
   userObject: PropTypes.object.isRequired,
   setLoading: PropTypes.bool.isRequired,
+  toggleConversation: PropTypes.bool.isRequired,
+  setToggleConversation: PropTypes.bool.isRequired,
 };
 
 export default Conversation;

@@ -17,6 +17,7 @@ const Users = () => {
   const users = useLoaderData();
   const location = useLocation();
   const [searchInput, setSearchInput] = useState("");
+  const [toggleConversation, setToggleConversation] = useState(false);
 
   const {
     userObject: [userObject],
@@ -42,6 +43,7 @@ const Users = () => {
       const userObject = users.find((user) => user.id === userId.current);
       setUser(userObject);
       const data = await res.json();
+      setToggleConversation(true);
       setConversation(data);
 
       return data;
@@ -62,7 +64,7 @@ const Users = () => {
   };
 
   return (
-    <main className={styles.mainContainer}>
+    <main className={styles.mainUsers}>
       <section className={styles.usersSection}>
         <section className={styles.headingSection}>
           {location.pathname === "/messages" ? (
@@ -73,22 +75,27 @@ const Users = () => {
         </section>
         <Searchbox handleSearch={handleSearch} />
         <section className={styles.usersContainer}>
-          {users ? (
+          {users && !toggleConversation ? (
             <UserList
               users={userList}
               handleUserMessages={handleUserMessages}
               userObject={userObject}
+              toggleConversation={toggleConversation}
+              setToggleConversation={setToggleConversation}
             />
           ) : null}
         </section>
       </section>
       <section className={styles.conversationSection}>
-        {user ? (
+        {user && toggleConversation ? (
           <Conversation
             user={user}
+            setUser={setUser}
             conversation={conversation}
             userObject={userObject}
             setConversation={setConversation}
+            setToggleConversation={setToggleConversation}
+            toggleConversation={toggleConversation}
           />
         ) : null}
       </section>
