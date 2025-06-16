@@ -56,7 +56,8 @@ const logInUser = asyncHandler(async (req, res, next) => {
       }
       if (!user) {
         return res.status(401).json({
-          message: "User not found.",
+          message: "Incorrect username or password!",
+          status: 401,
         });
       }
       req.login(user, { session: false });
