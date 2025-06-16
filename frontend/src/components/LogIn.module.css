@@ -9,7 +9,7 @@
   --secondary-heading-font-color: #000;
 }
 
-main {
+.mainLogin {
   display: flex;
   flex-flow: column wrap;
   grid-column: 1/4;
@@ -20,7 +20,7 @@ svg {
   height: auto;
 }
 
-button {
+.loginForm > button {
   margin-top: 10px;
   border-radius: 1rem;
   width: 190px;
@@ -34,23 +34,13 @@ button {
   cursor: pointer;
 }
 
-button:focus {
+.signupForm > button:focus {
   outline: none;
 }
 
-input {
-  border: none;
-  border-radius: 10px;
-  background-color: var(--input-bg-color);
-  width: 300px;
-  height: 40px;
-  padding: 1rem;
-}
-
-input:focus,
-input:focus-visible {
-  outline: none;
-  border: 3px solid #27b498;
+.signupButton {
+  background-color: var(--secondary-button-bg-color);
+  color: var(--secondary-button-font-color);
 }
 
 .loginButton {
@@ -59,12 +49,7 @@ input:focus-visible {
   margin-bottom: 10px;
 }
 
-.signinButton {
-  color: var(--secondary-button-font-color);
-  background-color: var(--secondary-button-bg-color);
-}
-
-.loginButton {
+.signupButton {
   margin-top: 10px;
   border-radius: 1rem;
   width: 190px;
@@ -130,10 +115,6 @@ input:focus-visible {
   border: 1px solid red;
 }
 
-.errorSection > ul > li {
-  list-style: inside;
-}
-
 /*  CSS animations */
 .fadeIn {
   opacity: 1;
@@ -154,7 +135,7 @@ input:focus-visible {
 }
 
 @media (min-width: 550px) {
-  input {
+  .loginForm > input {
     width: 450px;
   }
 
@@ -164,7 +145,7 @@ input:focus-visible {
 }
 
 @media (min-width: 800px) {
-  main {
+  .mainLogin {
     flex-flow: row wrap;
   }
 

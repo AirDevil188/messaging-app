@@ -4,3 +4,24 @@
   gap: 10px;
   text-align: center;
 }
+
+.formGroup > input {
+  border: none;
+  border-radius: 10px;
+  background-color: var(--input-bg-color);
+  width: 300px;
+  height: 40px;
+  padding: 1rem;
+}
+
+.formGroup > input:focus,
+.formGroup > input:focus-visible {
+  outline: none;
+  border: 3px solid #27b498;
+}
+
+@media (min-width: 550px) {
+  .formGroup > input {
+    width: 450px;
+  }
+}

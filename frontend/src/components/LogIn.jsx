@@ -29,7 +29,7 @@ const LogIn = () => {
   }
 
   return (
-    <main>
+    <main className={styles.mainLogin}>
       <section className={styles.loginSection}>
         <section className={styles.loginWrapper}>
           <section className={styles.headingSection}>
@@ -144,7 +144,7 @@ const LogIn = () => {
                 </ul>
               </section>
             ) : null}
-            <fetcher.Form method={"post"}>
+            <fetcher.Form method={"post"} className={styles.loginForm}>
               <FormWrapper
                 id={"username"}
                 name={"username"}

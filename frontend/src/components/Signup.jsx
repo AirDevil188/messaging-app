@@ -55,7 +55,7 @@ const SignUp = () => {
   }
 
   return (
-    <main>
+    <main className={styles.mainSignup}>
       <section className={styles.signupSection}>
         <section className={styles.signupWrapper}>
           <section className={styles.headingSection}>
@@ -72,7 +72,7 @@ const SignUp = () => {
                 </ul>
               </section>
             ) : null}
-            <fetcher.Form method="post">
+            <fetcher.Form method="post" className={styles.signupForm}>
               <FormWrapper
                 inputType={"text"}
                 id={"username"}
