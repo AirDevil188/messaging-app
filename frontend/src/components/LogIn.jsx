@@ -11,6 +11,7 @@ const LogIn = () => {
   } = useOutletContext();
   const fetcher = useFetcher();
   const [errors, setErrors] = useState(null);
+  console.log(errors);
 
   useEffect(() => {
     if (fetcher.data?.status === 401) {
@@ -152,6 +153,11 @@ const LogIn = () => {
                 isRequired={true}
                 placeholder={"Username"}
                 className={errors ? styles.notValid : null}
+                style={
+                  errors
+                    ? { backgroundColor: "#ef9a9a", border: "1px solid red" }
+                    : null
+                }
               ></FormWrapper>
               <FormWrapper
                 id={"password"}
@@ -159,7 +165,11 @@ const LogIn = () => {
                 inputType={"password"}
                 isRequired={true}
                 placeholder={"Password"}
-                className={errors ? styles.notValid : null}
+                style={
+                  errors
+                    ? { backgroundColor: "#ef9a9a", border: "1px solid red" }
+                    : null
+                }
               ></FormWrapper>
               <Button text={"Sign In"} className={styles.loginButton}></Button>
             </fetcher.Form>

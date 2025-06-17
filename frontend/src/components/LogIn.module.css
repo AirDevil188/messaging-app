@@ -1,6 +1,5 @@
 :root {
   --input-bg-color: #ecf5f3;
-  --input-error-bg-color: #ef9a9a;
   --primary-button-bg-color: #27b498;
   --secondary-button-bg-color: #fff;
   --primary-button-font-color: #fff;
@@ -13,6 +12,7 @@
   display: flex;
   flex-flow: column wrap;
   grid-column: 1/4;
+  min-height: 100vh;
 }
 
 svg {

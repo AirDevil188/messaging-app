@@ -79,7 +79,11 @@ const SignUp = () => {
                 name={"username"}
                 isRequired={true}
                 placeholder={"Username"}
-                className={errorInputs?.username ? styles.notValid : null}
+                style={
+                  errorInputs?.username
+                    ? { backgroundColor: "#ef9a9a", border: "1px solid red" }
+                    : null
+                }
               />
               <FormWrapper
                 inputType={"password"}
@@ -87,7 +91,11 @@ const SignUp = () => {
                 name={"password"}
                 isRequired={true}
                 placeholder={"Password"}
-                className={errorInputs?.password ? styles.notValid : null}
+                style={
+                  errorInputs?.password
+                    ? { backgroundColor: "#ef9a9a", border: "1px solid red" }
+                    : null
+                }
               ></FormWrapper>
               <FormWrapper
                 inputType={"password"}
@@ -95,8 +103,10 @@ const SignUp = () => {
                 name={"confirm_password"}
                 isRequired={true}
                 placeholder={"Confirm Password"}
-                className={
-                  errorInputs?.confirm_password ? styles.notValid : null
+                style={
+                  errorInputs?.confirm_password
+                    ? { backgroundColor: "#ef9a9a", border: "1px solid red" }
+                    : null
                 }
               ></FormWrapper>
               <Button
