@@ -1,10 +1,9 @@
 import { format, parseISO } from "date-fns";
 import styles from "./Conversation.module.css";
 import { useFetcher } from "react-router-dom";
-import Button from "./Button";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
-import { IoMdArrowBack } from "react-icons/io";
+import { IoArrowBackCircle, IoSend } from "react-icons/io5";
 
 const Conversation = ({
   user,
@@ -32,8 +31,12 @@ const Conversation = ({
   return (
     <>
       <section className={styles.conversationInfo}>
-        <section className={styles.conversationButton}>
-          <IoMdArrowBack onClick={handleBackButton} />
+        <section className={`${styles.conversationButton} ${styles.hidden}`}>
+          <IoArrowBackCircle
+            onClick={handleBackButton}
+            size={50}
+            fill="#27b498"
+          />
         </section>
         <section className={styles.conversationImage}>
           {user?.imageUrl ? (
@@ -79,20 +82,28 @@ const Conversation = ({
         ) : null}
       </section>
       <section className={styles.formContainer}>
-        <fetcher.Form method="POST">
-          <input
-            type="hidden"
-            name={user ? "userId" : "chatroomId"}
-            id={user ? "userId" : "chatroomId"}
-            value={user ? user.id : conversation.id}
-          />
-          <section className={styles.formGroup}>
-            <input type="text" name="text" id="text" required={true} />
-          </section>
-          <section className={styles.buttonContainer}>
-            <Button text={"SEND"} type={"submit"}></Button>
-          </section>
-        </fetcher.Form>
+        <section className={styles.formWrapper}>
+          <fetcher.Form method="POST">
+            <input
+              type="hidden"
+              name={user ? "userId" : "chatroomId"}
+              id={user ? "userId" : "chatroomId"}
+              value={user ? user.id : conversation.id}
+            />
+            <section className={styles.formGroup}>
+              <textarea
+                name="text"
+                id="text"
+                required={true}
+                placeholder="What's on your mind?"
+              />
+
+              <button type="submit" id={styles.sendMsgButton}>
+                <IoSend size={30} fill="#27b498"></IoSend>
+              </button>
+            </section>
+          </fetcher.Form>
+        </section>
       </section>
     </>
   );
