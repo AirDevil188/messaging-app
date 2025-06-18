@@ -9,6 +9,7 @@ const FormWrapper = ({
   inputType,
   placeholder,
   className,
+  style,
 }) => {
   return (
     <section className={styles.formGroup}>
@@ -20,6 +21,7 @@ const FormWrapper = ({
         type={inputType}
         placeholder={placeholder}
         className={className}
+        style={style}
       ></input>
     </section>
   );
@@ -35,4 +37,5 @@ FormWrapper.propTypes = {
   placeholder: PropTypes.string,
   inputType: PropTypes.string.isRequired,
   className: PropTypes.string,
+  style: PropTypes.string,
 };
