@@ -31,16 +31,35 @@ async function getLoggedInUser(userId) {
   }
 }
 
-async function findUsers() {
+async function findUsers(userId) {
   try {
     return await prisma.user.findMany({
+      where: {
+        NOT: {
+          id: userId,
+        },
+      },
       omit: {
         password: true,
       },
       include: {
         chatroom: {
+          where: {
+            users: {
+              some: {
+                id: userId,
+              },
+            },
+          },
           include: {
             messages: {},
+            users: {
+              where: {
+                NOT: {
+                  id: userId,
+                },
+              },
+            },
           },
         },
       },
@@ -212,7 +231,11 @@ async function createMessage(text, user_1, user_2, chatroomId) {
             secondUserId: user_2,
           },
         },
+        users: {
+          connect: [{ id: user_1 }, { id: user_2 }],
+        },
       },
+
       omit: {
         id: true,
       },
@@ -235,7 +258,32 @@ async function createMessage(text, user_1, user_2, chatroomId) {
   }
 }
 
-async function findChatroom(user_1, user_2) {
+async function findChatroom(chatroomId) {
+  try {
+    return prisma.chatroom.findFirst({
+      where: {
+        id: chatroomId,
+      },
+      include: {
+        messages: {
+          include: {
+            user: {
+              omit: {
+                password: true,
+                imageUrl: true,
+              },
+            },
+          },
+        },
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
+async function findChatroomMessages(user_1, user_2) {
   try {
     return prisma.chatroom.findFirst({
       where: {
@@ -272,24 +320,23 @@ async function getAllChatRooms(userId) {
     return prisma.chatroom.findMany({
       where: {
         name: null,
-      },
-      include: {
         users: {
+          some: {
+            id: userId,
+          },
+        },
+      },
+
+      include: {
+        messages: {},
+        users: {
+          include: {
+            messages: {},
+          },
           where: {
-            OR: [
-              {
-                messages: {
-                  some: {
-                    secondUserId: userId,
-                  },
-                },
-              },
-              {
-                messages: {
-                  every: { userId: userId },
-                },
-              },
-            ],
+            NOT: {
+              id: userId,
+            },
           },
           omit: {
             password: true,
@@ -308,6 +355,7 @@ module.exports = {
   findUsers,
   getLoggedInUser,
   findChatroom,
+  findChatroomMessages,
   getAllChatRooms,
   getGlobalChatroom,
   createUser,
