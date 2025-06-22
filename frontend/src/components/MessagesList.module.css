@@ -9,7 +9,7 @@
 }
 
 .userInfo > img {
-  width: 100px;
+  width: 60px;
   height: auto;
 }
 
@@ -17,6 +17,10 @@
   display: flex;
   order: 1;
   align-items: center;
+}
+
+.userInfo > span {
+  margin-left: 5px;
 }
 
 .userButtonSection {
@@ -28,6 +32,8 @@
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid black;
 }
 
 .flex {

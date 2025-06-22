@@ -30,23 +30,50 @@ const Conversation = ({
 
   return (
     <>
-      <section className={styles.conversationInfo}>
-        <section className={`${styles.conversationButton} ${styles.hidden}`}>
-          <IoArrowBackCircle
-            onClick={handleBackButton}
-            size={50}
-            fill="#27b498"
-          />
+      {location.pathname === "/messages" ? (
+        user.users.map((user) => {
+          return (
+            <section className={styles.conversationInfo} key={user.id}>
+              <section
+                className={`${styles.conversationButton} ${styles.hidden}`}
+              >
+                <IoArrowBackCircle
+                  onClick={handleBackButton}
+                  size={50}
+                  fill="#27b498"
+                />
+              </section>
+              <section className={styles.conversationImage}>
+                {user?.imageUrl ? (
+                  <img src={user.imageUrl} alt="User avatar" />
+                ) : null}
+              </section>
+              <section className={styles.conversationUsername}>
+                <span>{user?.username}</span>
+              </section>
+            </section>
+          );
+        })
+      ) : (
+        <section className={styles.conversationInfo} key={user.id}>
+          <section className={`${styles.conversationButton} ${styles.hidden}`}>
+            <IoArrowBackCircle
+              onClick={handleBackButton}
+              size={50}
+              fill="#27b498"
+            />
+          </section>
+          <section className={styles.conversationImage}>
+            {user?.imageUrl ? (
+              <img src={user.imageUrl} alt="User avatar" />
+            ) : null}
+          </section>
+          <section className={styles.conversationUsername}>
+            <span>{user?.username}</span>
+          </section>
         </section>
-        <section className={styles.conversationImage}>
-          {user?.imageUrl ? (
-            <img src={user.imageUrl} alt="User avatar" />
-          ) : null}
-        </section>
-        <section className={styles.conversationUsername}>
-          <span>{user?.username}</span>
-        </section>
-      </section>
+      )}
+
       <section className={`${styles.conversationContainer}`}>
         {conversation?.messages ? (
           <section className={styles.conversationWrapper}>
@@ -84,12 +111,30 @@ const Conversation = ({
       <section className={styles.formContainer}>
         <section className={styles.formWrapper}>
           <fetcher.Form method="POST">
-            <input
-              type="hidden"
-              name={user ? "userId" : "chatroomId"}
-              id={user ? "userId" : "chatroomId"}
-              value={user ? user.id : conversation.id}
-            />
+            {location.pathname === "/messages" ? (
+              <>
+                <input
+                  type="hidden"
+                  name={"chatroomId"}
+                  id={"chatroomId"}
+                  value={user.id}
+                />
+                <input
+                  type="hidden"
+                  name={"userId"}
+                  id={"userId"}
+                  value={user.users[0].id}
+                />
+              </>
+            ) : (
+              <input
+                type="hidden"
+                name={"userId"}
+                id={"userId"}
+                value={user.id}
+              />
+            )}
+
             <section className={styles.formGroup}>
               <textarea
                 name="text"

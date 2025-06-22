@@ -1,54 +1,56 @@
-import { useLoaderData, useOutletContext } from "react-router-dom";
-import styles from "./Users.module.css";
-import PropTypes from "prop-types";
-import { useEffect, useRef, useState } from "react";
-import UsersList from "./UsersList";
-import Conversation from "./Conversation";
+import { useLoaderData, useLocation, useOutletContext } from "react-router-dom";
+import styles from "./Messages.module.css";
 import { handleFetch } from "../utils/handleFetch";
 
-const Users = () => {
-  const users = useLoaderData();
+import { useEffect, useRef, useState } from "react";
+import Conversation from "./Conversation";
+import MessagesList from "./MessagesList";
 
-  const [searchInput, setSearchInput] = useState("");
+const Users = () => {
+  const chatrooms = useLoaderData();
+
+  const location = useLocation();
   const [toggleConversation, setToggleConversation] = useState(false);
-  const [userList, setUserList] = useState(users ? users : null);
-  const [conversation, setConversation] = useState({});
 
   const {
     userObject: [userObject],
   } = useOutletContext();
 
-  useEffect(() => {
-    if (searchInput == "") setUserList(users);
-  }, [searchInput]);
-
   const userId = useRef(null);
   const [user, setUser] = useState(null);
+  const [conversation, setConversation] = useState({});
+  const [messagesList, setMessagesList] = useState(
+    chatrooms ? chatrooms : null
+  );
+  const [previewMessages, setPreviewMessages] = useState({});
 
-  const handleSearch = (e) => {
-    setSearchInput(e.target.value);
-    if (searchInput === "") {
-      setUserList(users);
-    } else {
-      setUserList(
-        userList.filter((user) =>
-          user.username.toLowerCase().includes(searchInput.toLocaleLowerCase())
-        )
-      );
+  useEffect(() => {
+    if (location.pathname === "/messages") {
+      const newPreviewMessages = {};
+
+      chatrooms.forEach((chatroom) => {
+        const chatroomMessages = [...chatroom.messages];
+        const lastMessage =
+          chatroomMessages.length > 0
+            ? chatroomMessages[chatroomMessages.length - 1]
+            : null;
+
+        newPreviewMessages[chatroom.id] = lastMessage;
+      });
+      setPreviewMessages(newPreviewMessages);
     }
-  };
+  }, [chatrooms]);
 
   const handleUserMessages = async (e) => {
     userId.current = e.target.id;
     const res = await handleFetch(
-      `/messages/users/${userId.current}`,
+      `/chatroom/${userId.current}`,
       undefined,
       "GET"
     );
     if (res.ok) {
-      const userObject = users.find((user) => user.id === userId.current);
-
-      setUser(userObject);
+      const user = chatrooms.find((chatroom) => chatroom.id === userId.current);
+      setUser(user);
 
       const data = await res.json();
 
@@ -63,9 +65,12 @@ const Users = () => {
     <main className={styles.mainUsers}>
       <section className={styles.usersSection}>
         <section className={styles.headingSection}>
-          <h3>All Users</h3>
+          {location.pathname === "/messages" ? (
+            <h3>All Messages</h3>
+          ) : (
+            <h3>All Users</h3>
+          )}
         </section>
-        <Searchbox handleSearch={handleSearch} />
         <section
           className={
             toggleConversation
@@ -73,11 +78,12 @@ const Users = () => {
               : `${styles.usersContainer}`
           }
         >
-          {users ? (
-            <UsersList
-              users={userList}
+          {chatrooms ? (
+            <MessagesList
+              messages={messagesList}
               handleUserMessages={handleUserMessages}
               userObject={userObject}
+              previewMessages={previewMessages}
             />
           ) : null}
         </section>
@@ -99,39 +105,22 @@ const Users = () => {
   );
 };
 
-export const handleUserMessageSubmit = async ({ request }) => {
+export const handleMessageSubmit = async ({ request }) => {
   const data = await request.formData();
   const formData = Object.fromEntries(data);
+
   const submission = {
     text: formData.text,
+    chatroomId: formData.chatroomId,
     userId: formData.userId,
   };
   const res = await handleFetch(
-    `/messages/create/${submission.userId}`,
+    `/messages/${submission.userId}`,
     submission,
     "POST"
   );
+
   return await res.json();
-};
-
-const Searchbox = ({ handleSearch }) => {
-  return (
-    <>
-      <section className={styles.searchSection}>
-        <input
-          type="text"
-          id="search"
-          name="search"
-          onChange={handleSearch}
-          placeholder="...Search"
-        />
-      </section>
-    </>
-  );
-};
-
-Searchbox.propTypes = {
-  handleSearch: PropTypes.func.isRequired,
 };
 
 export default Users;
