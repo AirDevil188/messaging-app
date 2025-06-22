@@ -69,7 +69,8 @@ const logInUser = asyncHandler(async (req, res, next) => {
 });
 
 const getAllUsers = asyncHandler(async (req, res, next) => {
-  const users = await db.findUsers();
+  const { user } = req.user;
+  const users = await db.findUsers(user);
 
   return res.json(users);
 });
