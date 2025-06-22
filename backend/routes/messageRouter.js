@@ -10,8 +10,20 @@ messageRouter.get(
   messageController.getAllMessages
 );
 
+messageRouter.get(
+  "/users/:id",
+  passport.authenticate("jwt", { session: false }),
+  messageController.getUsersMessages
+);
+
 messageRouter.post(
   "/:id",
+  passport.authenticate("jwt", { session: false }),
+  messageController.createMessageChatroom
+);
+
+messageRouter.post(
+  "/create/:id",
   passport.authenticate("jwt", { session: false }),
   messageController.createMessage
 );
