@@ -2,12 +2,19 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "../App";
 import LogIn, { handleLogin } from "../components/LogIn";
 import SignUp, { handleSignUp } from "../components/Signup";
-import Users, { handleMessageSubmit } from "../components/Users";
-import { getAllChatRooms, getGlobalChatroom, getUsers } from "../utils/loaders";
+import Messages, { handleMessageSubmit } from "../components/Messages";
+import {
+  getAllChatRooms,
+  getGlobalChatroom,
+  getLoggedInUser,
+  getUsers,
+} from "../utils/loaders";
 import ErrorElement from "../components/ErrorElement";
 import GlobalChatroom, {
   handleGlobalMessageSubmit,
 } from "../components/GlobalChatroom";
+import Profile from "../components/Profile";
+import Users, { handleUserMessageSubmit } from "../components/Users";
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -33,11 +40,11 @@ const Router = () => {
           path: "/all-users",
           element: <Users />,
           loader: getUsers,
-          action: handleMessageSubmit,
+          action: handleUserMessageSubmit,
         },
         {
           path: "/messages",
-          element: <Users />,
+          element: <Messages />,
           loader: getAllChatRooms,
           action: handleMessageSubmit,
           errorElement: <ErrorElement />,
@@ -48,6 +55,12 @@ const Router = () => {
           action: handleGlobalMessageSubmit,
           element: <GlobalChatroom />,
           errorElement: <ErrorElement />,
+        },
+        {
+          path: "/profile",
+          element: <Profile />,
+          errorElement: <ErrorElement />,
+          loader: getLoggedInUser,
         },
       ],
     },
