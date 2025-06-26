@@ -1,4 +1,4 @@
-import { FiMessageSquare, FiUsers, FiLogOut } from "react-icons/fi";
+import { FiMessageSquare, FiUsers, FiLogOut, FiUser } from "react-icons/fi";
 import { RiGlobalLine } from "react-icons/ri";
 import styles from "./Navigation.module.css";
 import PropTypes from "prop-types";
@@ -39,11 +39,7 @@ const Navigation = ({ userObject, setUserObject }) => {
         <ul className={styles.profileMenu}>
           <li className={styles.navButton}>
             <a href="/profile">
-              <img
-                src={userObject.userImage}
-                alt="User avatar!"
-                id={styles.userAvatar}
-              />
+              <FiUser size={40} />
             </a>
           </li>
           <li className={styles.navButton} onClick={handleLogOut}>
