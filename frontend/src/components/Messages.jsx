@@ -46,7 +46,11 @@ const Users = () => {
     const res = await handleFetch(
       `/chatroom/${userId.current}`,
       undefined,
-      "GET"
+      "GET",
+      {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      }
     );
     if (res.ok) {
       const user = chatrooms.find((chatroom) => chatroom.id === userId.current);

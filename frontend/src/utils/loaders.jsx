@@ -20,7 +20,10 @@ export const getMessages = async () => {
 };
 
 export const getUsers = async () => {
-  const res = await handleFetch("/all-users", undefined, "GET");
+  const res = await handleFetch("/all-users", undefined, "GET", {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + localStorage.getItem("token"),
+  });
   if (res.ok) {
     return await res.json();
   }
