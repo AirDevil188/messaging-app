@@ -43,7 +43,11 @@ const Users = () => {
     const res = await handleFetch(
       `/messages/users/${userId.current}`,
       undefined,
-      "GET"
+      "GET",
+      {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      }
     );
     if (res.ok) {
       const userObject = users.find((user) => user.id === userId.current);
