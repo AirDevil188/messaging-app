@@ -14,7 +14,6 @@ function App() {
         ...userObject,
         token: localStorage.getItem("token"),
         user: token.user,
-        userImage: token.userImage,
       });
     }
   }, [userObject.token]);
