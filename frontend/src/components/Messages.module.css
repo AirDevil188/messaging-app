@@ -1,3 +1,7 @@
+:root {
+  ---user-container-border-color: #d4d4d8;
+}
+
 .mainUsers {
   flex-flow: column wrap;
   grid-row: 1/4;
@@ -33,6 +37,8 @@ img {
 @media (min-width: 800px) {
   .usersContainer {
     display: block;
+    flex: 1;
+    border-right: 1px solid var(---user-container-border-color);
   }
   .mainUsers {
     flex-flow: row nowrap;
