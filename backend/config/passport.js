@@ -50,9 +50,10 @@ const passportJWTStrategy = () => {
   opts.secretOrKey = process.env.SECRET;
   passport.use(
     new JwtStrategy(opts, async (jwt_payload, done) => {
-      console.log(process.env.SECRET);
       try {
-        return done(null, { user: jwt_payload.user });
+        return done(null, {
+          user: jwt_payload.user,
+        });
       } catch (err) {
         console.log(err);
         return done(err);
