@@ -1,3 +1,8 @@
+:root {
+  ---button-bg-color: #fff;
+  ---button-border-color: #d4d4d8;
+}
+
 .userList {
   display: flex;
   flex-flow: column nowrap;
@@ -15,7 +20,6 @@
 
 .userInfo {
   display: flex;
-  order: 1;
   align-items: center;
 }
 
@@ -38,4 +42,23 @@
 
 .flex {
   display: flex;
+}
+
+.userWrapper {
+  display: flex;
+  flex-flow: column wrap;
+  flex: 1;
+}
+
+.userMessage {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: 1px solid var(---button-border-color);
+  background-color: var(---button-bg-color);
 }
