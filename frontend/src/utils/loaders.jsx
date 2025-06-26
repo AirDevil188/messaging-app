@@ -1,7 +1,10 @@
 import { handleFetch } from "./handleFetch";
 
 export const getMessages = async () => {
-  const res = await handleFetch("/messages", undefined, "GET");
+  const res = await handleFetch("/messages", undefined, "GET", {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + localStorage.getItem("token"),
+  });
 
   if (res.ok) {
     return await res.json();
@@ -32,7 +35,10 @@ export const getUsers = async () => {
 };
 
 export const getGlobalChatroom = async () => {
-  const res = await handleFetch("/chatroom/global", undefined, "GET");
+  const res = await handleFetch("/chatroom/global", undefined, "GET", {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + localStorage.getItem("token"),
+  });
   if (res.ok) {
     return await res.json();
   }
@@ -46,7 +52,10 @@ export const getGlobalChatroom = async () => {
 };
 
 export const getAllChatRooms = async () => {
-  const res = await handleFetch("/messages", undefined, "GET");
+  const res = await handleFetch("/messages", undefined, "GET", {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + localStorage.getItem("token"),
+  });
   if (res.ok) {
     return await res.json();
   }
@@ -61,7 +70,10 @@ export const getAllChatRooms = async () => {
 };
 
 export const getLoggedInUser = async () => {
-  const res = await handleFetch("/profile", undefined, "GET");
+  const res = await handleFetch("/profile", undefined, "GET", {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + localStorage.getItem("token"),
+  });
   if (res.ok) {
     return await res.json();
   }

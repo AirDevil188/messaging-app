@@ -148,7 +148,15 @@ export const handleSignUp = async ({ request }) => {
     password: formData.get("password"),
     confirm_password: formData.get("confirm_password"),
   };
-  const res = await handleFetch("/sign-up", submission, "post");
+  const res = await handleFetch(
+    "/sign-up",
+    JSON.stringify(submission),
+    "post",
+    {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    }
+  );
   if (res.ok) {
     return redirect("/");
   }

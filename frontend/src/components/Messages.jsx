@@ -116,8 +116,12 @@ export const handleMessageSubmit = async ({ request }) => {
   };
   const res = await handleFetch(
     `/messages/${submission.userId}`,
-    submission,
-    "POST"
+    JSON.stringify(submission),
+    "POST",
+    {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    }
   );
 
   return await res.json();

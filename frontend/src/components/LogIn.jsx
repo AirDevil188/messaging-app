@@ -208,7 +208,10 @@ export const handleLogin = async ({ request }) => {
     password: formData.get("password"),
   };
 
-  const res = await handleFetch("/log-in", submission, "post");
+  const res = await handleFetch("/log-in", JSON.stringify(submission), "post", {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + localStorage.getItem("token"),
+  });
 
   if (res.ok) {
     const data = await res.json();
