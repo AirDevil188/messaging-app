@@ -42,7 +42,7 @@ const Users = () => {
   }, [chatrooms]);
 
   const handleUserMessages = async (e) => {
-    userId.current = e.target.id;
+    userId.current = e.currentTarget.id;
     const res = await handleFetch(
       `/chatroom/${userId.current}`,
       undefined,
