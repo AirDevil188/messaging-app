@@ -1,3 +1,7 @@
+:root {
+  --navigation-bg-color: ##27b498;
+}
+
 .sideBarMenu {
   display: flex;
   flex-flow: row nowrap;
@@ -29,6 +33,7 @@ ul {
   display: flex;
   flex-flow: row nowrap;
   width: 100%;
+  align-items: center;
 }
 
 a {
@@ -37,6 +42,7 @@ a {
 
 @media (min-width: 800px) {
   nav {
+    background-color: var(--navigation-bg-color);
     flex-flow: column nowrap;
     height: 100%;
     justify-content: space-between;
@@ -44,13 +50,15 @@ a {
 
   .profileMenu {
     flex-flow: column nowrap;
-    gap: 30px;
+    gap: 15px;
   }
 
   .sideBarMenu {
     display: flex;
     flex-flow: column nowrap;
     height: 100%;
+    align-items: center;
+    gap: 15px;
   }
 
   .navButton {
