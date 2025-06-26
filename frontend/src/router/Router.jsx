@@ -13,7 +13,7 @@ import ErrorElement from "../components/ErrorElement";
 import GlobalChatroom, {
   handleGlobalMessageSubmit,
 } from "../components/GlobalChatroom";
-import Profile from "../components/Profile";
+import Profile, { handleFileUpload } from "../components/Profile";
 import Users, { handleUserMessageSubmit } from "../components/Users";
 
 const Router = () => {
@@ -61,6 +61,7 @@ const Router = () => {
           element: <Profile />,
           errorElement: <ErrorElement />,
           loader: getLoggedInUser,
+          action: handleFileUpload,
         },
       ],
     },

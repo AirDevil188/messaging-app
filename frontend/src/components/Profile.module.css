@@ -1,0 +1,66 @@
+:root {
+  --primary-button-bg-color: #27b498;
+  --primary-button-font-color: #fff;
+}
+
+.profileMain {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.profileSection {
+  padding: 2rem;
+}
+
+.profileInfo {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.profileAvatarSection > img {
+  width: 250px;
+  height: auto;
+}
+
+.profileAvatarForm {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  align-content: center;
+}
+
+.profileAvatarForm > form {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.uploadButton {
+  margin-top: 10px;
+  border-radius: 1rem;
+  width: 190px;
+  height: 50px;
+  font-size: 1.2rem;
+  padding: 0.5rem, 1rem;
+  text-align: center;
+  font-weight: 900;
+  text-transform: capitalize;
+  border: none;
+  cursor: pointer;
+  background-color: var(--primary-button-bg-color);
+  color: var(--primary-button-font-color);
+}
+
+.profileDetails {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+  align-items: center;
+}
+
+@media (min-width: 550px) {
+  .profileInfo {
+    flex-flow: row wrap;
+  }
+}
