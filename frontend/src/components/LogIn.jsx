@@ -11,7 +11,6 @@ const LogIn = () => {
   } = useOutletContext();
   const fetcher = useFetcher();
   const [errors, setErrors] = useState(null);
-  console.log(errors);
 
   useEffect(() => {
     if (fetcher.data?.status === 401) {
