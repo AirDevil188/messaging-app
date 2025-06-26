@@ -6,7 +6,6 @@ export const handleFetch = async (
   method,
   headers
 ) => {
-  const token = localStorage.getItem("token");
   const options = {
     mode: "cors",
     method: method,
@@ -16,9 +15,3 @@ export const handleFetch = async (
 
   return fetch(host + endPoint, options);
 };
-
-// body: JSON.stringify(input),
-// headers: {
-//   "Content-Type": "application/json",
-//   Authorization: "Bearer " + token,
-// },
