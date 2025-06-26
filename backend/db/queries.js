@@ -350,6 +350,24 @@ async function getAllChatRooms(userId) {
   }
 }
 
+async function updateUserAvatar(userId, imageUrl) {
+  try {
+    return prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        imageUrl: imageUrl,
+      },
+      omit: {
+        password: true,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
 module.exports = {
   findUser,
   findUsers,
@@ -364,4 +382,5 @@ module.exports = {
   getMessageConversation,
   createMessage,
   createMessageGlobalChatroom,
+  updateUserAvatar,
 };

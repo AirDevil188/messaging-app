@@ -1,9 +1,14 @@
 const { body, validationResult } = require("express-validator");
+const dotenv = require("dotenv");
 const asyncHandler = require("express-async-handler");
 const bcryptjs = require("bcryptjs");
 const db = require("../db/queries");
 const passport = require("passport");
 const generateToken = require("../config/jwt");
+const cloudinary = require("cloudinary").v2;
+
+dotenv.config();
+cloudinary.config().cloud_name;
 
 const validateUser = [
   body("username")
@@ -83,9 +88,20 @@ const getLoggedInUser = async (req, res, next) => {
   return res.json(loggedInUser);
 };
 
+const uploadProfilePicture = asyncHandler(async (req, res, next) => {
+  const { user } = req.user;
+  const uploadedImage = await cloudinary.uploader.upload(req.file.path, {
+    resource_type: "auto",
+  });
+
+  const updateUserAvatar = await db.updateUserAvatar(user, uploadedImage.url);
+  return res.json(updateUserAvatar);
+});
+
 module.exports = {
   logInUser,
   createUser,
   getAllUsers,
   getLoggedInUser,
+  uploadProfilePicture,
 };
