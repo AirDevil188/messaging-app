@@ -1,6 +1,8 @@
 :root {
   ---button-bg-color: #fff;
   ---button-border-color: #d4d4d8;
+  ---primary-font-color: #000;
+  ---secondary-font-color: #71717a;
 }
 
 .userList {
@@ -20,11 +22,16 @@
 
 .userInfo {
   display: flex;
-  align-items: center;
+  flex-flow: row wrap;
+  gap: 10px;
 }
 
-.userInfo > span {
-  margin-left: 5px;
+.userImage {
+  align-self: flex-start;
+}
+
+.messageDetails > span {
+  font-weight: 600;
 }
 
 .userButtonSection {
@@ -44,15 +51,32 @@
   display: flex;
 }
 
+.messageDetails {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.messageDetails > span {
+  align-self: flex-start;
+}
 .userWrapper {
   display: flex;
   flex-flow: column wrap;
   flex: 1;
+  gap: 20px;
 }
 
 .userMessage {
   display: flex;
   justify-content: space-between;
+  color: var(---primary-font-color);
+}
+
+.userMessage > span,
+.userMessage > time {
+  color: var(---secondary-font-color);
 }
 
 .user {
