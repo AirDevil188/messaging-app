@@ -30,9 +30,26 @@ img {
   display: none;
 }
 
+.searchSection > input {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--input-bg-color);
+  height: 40px;
+  padding: 1rem;
+}
+
+.searchSection > input:focus,
+.searchSection input:focus-visible {
+  outline: none;
+  border: 3px solid #27b498;
+}
+
 @media (min-width: 800px) {
   .usersContainer {
     display: block;
+    flex: 1;
+    border-right: 1px solid var(---user-container-border-color);
   }
   .mainUsers {
     flex-flow: row nowrap;

@@ -1,3 +1,10 @@
+:root {
+  ---button-bg-color: #fff;
+  ---button-border-color: #d4d4d8;
+  ---primary-font-color: #000;
+  ---secondary-font-color: #71717a;
+}
+
 .userList {
   display: flex;
   flex-flow: column nowrap;
@@ -21,6 +28,7 @@
 
 .userInfo > span {
   margin-left: 5px;
+  font-weight: 600;
 }
 
 .userButtonSection {
@@ -33,7 +41,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(---button-border-color);
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  background-color: var(---button-bg-color);
+  cursor: pointer;
 }
 
 .flex {
