@@ -13,6 +13,18 @@ const Users = () => {
   const [toggleConversation, setToggleConversation] = useState(false);
   const [userList, setUserList] = useState(users ? users : null);
   const [conversation, setConversation] = useState({});
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 800);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const {
     userObject: [userObject],
@@ -39,7 +51,7 @@ const Users = () => {
   };
 
   const handleUserMessages = async (e) => {
-    userId.current = e.target.id;
+    userId.current = e.currentTarget.id;
     const res = await handleFetch(
       `/messages/users/${userId.current}`,
       undefined,
@@ -69,7 +81,11 @@ const Users = () => {
         <section className={styles.headingSection}>
           <h3>All Users</h3>
         </section>
-        <Searchbox handleSearch={handleSearch} />
+        <Searchbox
+          handleSearch={handleSearch}
+          toggleConversation={toggleConversation}
+          isMobile={isMobile}
+        />
         <section
           className={
             toggleConversation
@@ -122,10 +138,16 @@ export const handleUserMessageSubmit = async ({ request }) => {
   return await res.json();
 };
 
-const Searchbox = ({ handleSearch }) => {
+const Searchbox = ({ handleSearch, toggleConversation, isMobile }) => {
   return (
     <>
-      <section className={styles.searchSection}>
+      <section
+        className={
+          toggleConversation && isMobile
+            ? `${styles.searchSection} ${styles.hidden}`
+            : `${styles.searchSection}`
+        }
+      >
         <input
           type="text"
           id="search"
@@ -140,6 +162,8 @@ const Searchbox = ({ handleSearch }) => {
 
 Searchbox.propTypes = {
   handleSearch: PropTypes.func.isRequired,
+  toggleConversation: PropTypes.bool.isRequired,
+  isMobile: PropTypes.bool.isRequired,
 };
 
 export default Users;
