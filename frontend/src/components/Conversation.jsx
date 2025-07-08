@@ -30,49 +30,53 @@ const Conversation = ({
 
   return (
     <>
-      {location.pathname === "/messages" ? (
-        user.users.map((user) => {
-          return (
-            <section className={styles.conversationInfo} key={user.id}>
-              <section
-                className={`${styles.conversationButton} ${styles.hidden}`}
-              >
-                <IoArrowBackCircle
-                  onClick={handleBackButton}
-                  size={50}
-                  fill="#27b498"
-                />
+      {user ? (
+        location.pathname === "/messages" ? (
+          user.users.map((user) => {
+            return (
+              <section className={styles.conversationInfo} key={user.id}>
+                <section
+                  className={`${styles.conversationButton} ${styles.hidden}`}
+                >
+                  <IoArrowBackCircle
+                    onClick={handleBackButton}
+                    size={50}
+                    fill="#27b498"
+                  />
+                </section>
+                <section className={styles.conversationImage}>
+                  {user?.imageUrl ? (
+                    <img src={user.imageUrl} alt="User avatar" />
+                  ) : null}
+                </section>
+                <section className={styles.conversationUsername}>
+                  <span>{user?.username}</span>
+                </section>
               </section>
-              <section className={styles.conversationImage}>
-                {user?.imageUrl ? (
-                  <img src={user.imageUrl} alt="User avatar" />
-                ) : null}
-              </section>
-              <section className={styles.conversationUsername}>
-                <span>{user?.username}</span>
-              </section>
+            );
+          })
+        ) : (
+          <section className={styles.conversationInfo} key={user.id}>
+            <section
+              className={`${styles.conversationButton} ${styles.hidden}`}
+            >
+              <IoArrowBackCircle
+                onClick={handleBackButton}
+                size={50}
+                fill="#27b498"
+              />
             </section>
-          );
-        })
-      ) : (
-        <section className={styles.conversationInfo} key={user.id}>
-          <section className={`${styles.conversationButton} ${styles.hidden}`}>
-            <IoArrowBackCircle
-              onClick={handleBackButton}
-              size={50}
-              fill="#27b498"
-            />
+            <section className={styles.conversationImage}>
+              {user?.imageUrl ? (
+                <img src={user.imageUrl} alt="User avatar" />
+              ) : null}
+            </section>
+            <section className={styles.conversationUsername}>
+              <span>{user?.username}</span>
+            </section>
           </section>
-          <section className={styles.conversationImage}>
-            {user?.imageUrl ? (
-              <img src={user.imageUrl} alt="User avatar" />
-            ) : null}
-          </section>
-          <section className={styles.conversationUsername}>
-            <span>{user?.username}</span>
-          </section>
-        </section>
-      )}
+        )
+      ) : null}
 
       <section className={`${styles.conversationContainer}`}>
         {conversation?.messages ? (
@@ -108,48 +112,51 @@ const Conversation = ({
           </section>
         ) : null}
       </section>
-      <section className={styles.formContainer}>
-        <section className={styles.formWrapper}>
-          <fetcher.Form method="POST">
-            {location.pathname === "/messages" ? (
-              <>
-                <input
-                  type="hidden"
-                  name={"chatroomId"}
-                  id={"chatroomId"}
-                  value={user.id}
+      <>
+        <section className={styles.formContainer}>
+          <section className={styles.formWrapper}>
+            <fetcher.Form method="POST">
+              {user ? (
+                location.pathname === "/messages" ? (
+                  <>
+                    <input
+                      type="hidden"
+                      name={"chatroomId"}
+                      id={"chatroomId"}
+                      value={user.id}
+                    />
+                    <input
+                      type="hidden"
+                      name={"userId"}
+                      id={"userId"}
+                      value={user.users[0].id}
+                    />
+                  </>
+                ) : (
+                  <input
+                    type="hidden"
+                    name={"userId"}
+                    id={"userId"}
+                    value={user.id}
+                  />
+                )
+              ) : null}
+              <section className={styles.formGroup}>
+                <textarea
+                  name="text"
+                  id="text"
+                  required={true}
+                  placeholder="What's on your mind?"
                 />
-                <input
-                  type="hidden"
-                  name={"userId"}
-                  id={"userId"}
-                  value={user.users[0].id}
-                />
-              </>
-            ) : (
-              <input
-                type="hidden"
-                name={"userId"}
-                id={"userId"}
-                value={user.id}
-              />
-            )}
 
-            <section className={styles.formGroup}>
-              <textarea
-                name="text"
-                id="text"
-                required={true}
-                placeholder="What's on your mind?"
-              />
-
-              <button type="submit" id={styles.sendMsgButton}>
-                <IoSend size={30} fill="#27b498"></IoSend>
-              </button>
-            </section>
-          </fetcher.Form>
+                <button type="submit" id={styles.sendMsgButton}>
+                  <IoSend size={30} fill="#27b498"></IoSend>
+                </button>
+              </section>
+            </fetcher.Form>
+          </section>
         </section>
-      </section>
+      </>
     </>
   );
 };
