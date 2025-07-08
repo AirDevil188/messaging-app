@@ -1,5 +1,5 @@
 :root {
-  --sidebar-color: #27b498;
+  --primary-color: #27b498;
 }
 
 html {
@@ -34,13 +34,17 @@ main {
 header {
   grid-row: 4/4;
   grid-column: 1/4;
-  background-color: var(--sidebar-color);
+  background-color: var(--primary-color);
   padding: 1rem;
   color: #fff;
 }
 
 main {
   display: flex;
+}
+
+footer {
+  display: none;
 }
 
 @media (min-width: 800px) {
@@ -51,5 +55,14 @@ main {
 
   main {
     grid-column: 2/4;
+  }
+
+  footer {
+    display: flex;
+    flex-flow: row wrap;
+    background-color: var(--primary-color);
+    grid-column: 1/4;
+    justify-content: center;
+    padding: 1rem;
   }
 }
