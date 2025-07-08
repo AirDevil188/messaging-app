@@ -63,6 +63,7 @@
 
 .formGroup {
   display: flex;
+  justify-content: space-between;
 }
 
 .messageContent {
@@ -105,6 +106,13 @@
   padding: 1rem;
   flex-basis: 100px;
   color: #fff;
+}
+
+#sendMsgButton {
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: center;
 }
 
 @media (min-width: 800px) {
