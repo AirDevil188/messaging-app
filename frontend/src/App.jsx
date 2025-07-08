@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { validateToken } from "./utils/validateToken";
 import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
 
 function App() {
   const [userObject, setUserObject] = useState({ token: null });
@@ -25,7 +26,10 @@ function App() {
   return (
     <>
       {userObject.token ? (
-        <Navigation userObject={userObject} setUserObject={setUserObject} />
+        <>
+          <Navigation userObject={userObject} setUserObject={setUserObject} />
+          <Footer />
+        </>
       ) : null}
       <Outlet
         context={{
