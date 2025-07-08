@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import styles from "./UsersList.module.css";
 
 const UsersList = ({ users, handleUserMessages }) => {
-  console.log(users, "USERS");
   return (
     <ul className={styles.userList}>
       {users.map((user) => {
