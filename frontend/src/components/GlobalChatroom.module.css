@@ -1,0 +1,8 @@
+.mainGlobal {
+  min-height: 100vh;
+}
+.globalConversationSection {
+  display: flex;
+  flex-flow: column wrap;
+  flex: 1;
+}
