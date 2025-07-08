@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { validateToken } from "./utils/validateToken";
 import Navigation from "./components/Navigation";
 
 function App() {
   const [userObject, setUserObject] = useState({ token: null });
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const token = validateToken();
@@ -15,6 +17,8 @@ function App() {
         token: localStorage.getItem("token"),
         user: token.user,
       });
+    } else if (location.pathname !== "/sign-up") {
+      navigate("/log-in");
     }
   }, [userObject.token]);
 
