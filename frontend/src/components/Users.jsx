@@ -153,7 +153,7 @@ const Searchbox = ({ handleSearch, toggleConversation, isMobile }) => {
           id="search"
           name="search"
           onChange={handleSearch}
-          placeholder="...Search"
+          placeholder="Search"
         />
       </section>
     </>
