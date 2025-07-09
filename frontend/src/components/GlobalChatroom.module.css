@@ -1,5 +1,6 @@
 .mainGlobal {
   min-height: 100vh;
+  grid-row: 1 / span 1;
 }
 .globalConversationSection {
   display: flex;
