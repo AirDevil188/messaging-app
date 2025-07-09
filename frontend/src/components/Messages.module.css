@@ -30,6 +30,13 @@ img {
   flex: 1;
 }
 
+#sendMsgButton {
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: center;
+}
+
 .hidden {
   display: none;
 }
