@@ -1,8 +1,7 @@
-import { useFetcher, useLoaderData, useOutletContext } from "react-router-dom";
+import { useLoaderData, useOutletContext } from "react-router-dom";
 import styles from "./GlobalChatroom.module.css";
-import Conversation from "./Conversation";
 import { handleFetch } from "../utils/handleFetch";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import GlobalConversation from "./GlobalConversation";
 
 const GlobalChatroom = () => {
