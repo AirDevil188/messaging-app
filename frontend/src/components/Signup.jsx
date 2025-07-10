@@ -51,7 +51,7 @@ const SignUp = () => {
   }, [errors]);
 
   if (userObject.token) {
-    return <Navigate to={"/"} replace={true} />;
+    return <Navigate to={"/messages"} replace={true} />;
   }
 
   return (
@@ -158,7 +158,7 @@ export const handleSignUp = async ({ request }) => {
     }
   );
   if (res.ok) {
-    return redirect("/");
+    return redirect("/log-in");
   }
 
   if (res.status === 422) {
