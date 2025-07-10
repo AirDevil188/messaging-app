@@ -6,7 +6,7 @@ const Footer = () => {
     <footer>
       <section className={styles.footerSection}>
         <section className={styles.footerWrapper}>
-          <FaGithub size={30} />
+          <FaGithub size={30} color="#fff" />
           <a href="https://github.com/AirDevil188">
             <p>AirDevil188</p>
           </a>

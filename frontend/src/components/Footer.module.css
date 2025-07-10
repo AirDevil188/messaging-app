@@ -8,3 +8,9 @@
 .footerWrapper > a {
   text-decoration: none;
 }
+
+@media (min-width: 800px) {
+  footer {
+    grid-row: 4/4;
+  }
+}
