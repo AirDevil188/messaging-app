@@ -4,7 +4,7 @@ import {
   useFetcher,
   useOutletContext,
 } from "react-router-dom";
-import styles from "./SignUp.module.css";
+import styles from "./Signup.module.css";
 import FormWrapper from "./FormWrapper";
 import Button from "./Button";
 import { handleFetch } from "../utils/handleFetch";
