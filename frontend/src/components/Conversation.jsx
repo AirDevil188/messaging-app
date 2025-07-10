@@ -9,7 +9,6 @@ const Conversation = ({
   user,
   conversation,
   setConversation,
-  setLoading,
   userObject,
   toggleConversation,
   setToggleConversation,
@@ -167,7 +166,6 @@ Conversation.propTypes = {
   conversation: PropTypes.object.isRequired,
   setConversation: PropTypes.object.isRequired,
   userObject: PropTypes.object.isRequired,
-  setLoading: PropTypes.bool.isRequired,
   toggleConversation: PropTypes.bool.isRequired,
   setToggleConversation: PropTypes.bool.isRequired,
 };
