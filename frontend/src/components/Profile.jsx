@@ -1,4 +1,4 @@
-import { useFetcher, useLoaderData, useOutletContext } from "react-router-dom";
+import { useFetcher, useLoaderData } from "react-router-dom";
 import styles from "./Profile.module.css";
 import { useRef } from "react";
 import { handleFetch } from "../utils/handleFetch";
