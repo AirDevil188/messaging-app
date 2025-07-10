@@ -13,7 +13,10 @@ require("./config/passport");
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: [
+      "http://localhost:5173",
+      "https://frontend-production-f527.up.railway.app",
+    ],
     methods: "GET, PUT, POST, DELETE",
     optionsSuccessStatus: 204,
   })
