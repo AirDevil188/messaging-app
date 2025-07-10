@@ -1,0 +1,22 @@
+.mainErrors {
+  grid-column: 1/4;
+}
+
+.errorsSection {
+  display: flex;
+  flex-flow: column wrap;
+  flex: 1;
+  min-height: 100vh;
+  justify-content: center;
+}
+
+.errorsWrapper {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  gap: 15px;
+}
+
+.errorsWrapper > h1 {
+  font-size: 3rem;
+}
